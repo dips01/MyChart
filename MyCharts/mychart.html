@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="nav.css">
+    <script src="mychart.js"></script>
+    <script src="esl.js"></script>
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+
+    function param(color,type,data) {
+        var options = {
+            color:'rgba(255, 255, 255, 0.8)',
+            xAxis: [
+                {
+                    type: 'category',
+                    //data: x_Axis
+                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                }
+            ],
+            series: [
+                {
+                    name: '降水量',
+                    type: type,
+                    data: data
+                    //type: 'Polyline',
+                    //data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+
+                }
+            ]
+        }
+        return options;
+    }
+
+    //临时模拟数据
+    var MyChartLine=new MyChart('left',param('rgba(255, 255, 255, 0.8)','Polyline',
+        [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+    ));
+    MyChartLine.loadZrender();
+
+    var MyChartRectShape=new MyChart('right',param('rgba(255, 255, 255, 0.8)','RectShape',
+        [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+    ));
+    MyChartRectShape.loadZrender();
+
+    function noNumbers(event) {
+        var getHeight=$("#chartHeight").val();
+
+        var dataArr=$("#data").val();
+        dataArr=dataArr.split(",");
+        var dataIntArr=[];//保存转换后的整型字符串
+
+        $("#showList tr:gt(0)").html("");
+        let str_tr="<tr>";
+        dataArr.forEach(function(data,index,arr){
+            isNaN(+data)==true?dataIntArr.push(""):dataIntArr.push(+data);
+            str_tr+="<td>"+(+data)+"</td>";
+        });
+        str_tr+="</tr>";
+        $("#showList").append(str_tr);
+
+        if(event.keyCode==13){
+            $("#left").html("");
+            $("#right").html("");
+            $("#left").height(getHeight);
+            $("#right").height(getHeight);
+            var MyChartLine=new MyChart('left',param('rgba(255, 255, 255, 0.8)','Polyline',dataIntArr));
+            MyChartLine.loadZrender();
+
+            var MyChartRectShape=new MyChart('right',param('rgba(255, 255, 255, 0.8)','RectShape',dataIntArr));
+            MyChartRectShape.loadZrender();
+
+            $("#nav-container").removeClass("container_show").addClass("container_hide");
+        }
+    }
+
+</script>
+
+<p class="chart_title">某地区降水量</p>
+<div id="left" style="width:40%; height:400px;float: left; margin:0 50px;padding: 40px;"></div>
+<div id="right" style="width:40%; height:400px;float: left; margin:0 50px; padding: 40px"></div>
+<table id="showList"></table>
+
+<!--左侧导航-->
+<div id="nav-container">
+    <div class="nav-txt-wrapper">»<br>相关配置信息</div>
+    <div class="nav-main">
+        <ul>
+            <li>图表高度：<br><input type="text" id="chartHeight" onkeydown="return noNumbers(event)"> </li>
+            <li>降水量：<br><input type="text" id="data" value="12.6, 15.9, 19.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3" onkeydown="return noNumbers(event)" ></li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        //表格形式展示数据
+        let opts=param("","",[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]);
+        let title=opts.xAxis[0].data;
+        let data=opts.series[0].data;
+
+        let str_th="<tr>";
+        let str_tr="<tr>";
+        for (let i=0;i<title.length;i++){
+            str_th+="<th>"+title[i]+"</th>";
+            str_tr+="<td>"+data[i]+"</td>";
+        }
+        str_th+="</tr>";
+        str_tr+="</tr>";
+        $("#showList").append(str_th).append(str_tr);
+
+
+        //控制左侧导航
+        $(".nav-txt-wrapper").mouseenter(function () {
+            $("#nav-container").addClass("container_show");
+        })
+        $("#nav-container").mouseleave(function () {
+            $("#nav-container").removeClass("container_show").addClass("container_hide");
+        })
+    })
+</script>
+</body>
+</html>

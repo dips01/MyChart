@@ -1,0 +1,83 @@
+body,div,p,a,span,ul,li,input{margin: 0;padding: 0; box-sizing: border-box}
+#nav-container{
+    position:fixed;
+    left: 0;
+    top: 40px;
+    width: 34px;
+    height: 150px;
+}
+.nav-txt-wrapper{
+    background-color: #5797f1;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    width: 34px;
+    height: 150px;
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+.nav-txt-wrapper:hover{
+    cursor: pointer;
+}
+.nav-main{
+    border: 1px solid #5797f1;
+    width: 400px;
+    height: 150px;
+    margin-left: -400px;
+    background: #fff;
+    position: relative;
+}
+
+.nav-main ul{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.nav-main ul li{
+    list-style: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#data{ width: 320px}
+
+.container_show{
+    transform: translate(400px, 0);
+    -ms-transform: translate(400px, 0);
+    -webkit-transform: translate(400px, 0);
+    -o-transform: translate(400px, 0);
+    -moz-transform: translate(400px, 0);
+    transition: transform 2s ;
+    -moz-transition: transform 2s; /* Firefox 4 */
+    -webkit-transition: transform 2s; /* Safari 和 Chrome */
+    -o-transition: transform 2s; /* Opera */
+
+}
+.container_hide{
+    transition:2s;
+    -moz-transition: 2s; /* Firefox 4 */
+    -webkit-transition:2s; /* Safari 和 Chrome */
+    -o-transition: 2s; /* Opera */
+}
+
+.chart_title{
+    margin-top: 40px;
+    text-align: center;
+}
+
+#showList {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse:collapse;
+    border: 1px solid #1a1a1a;
+    margin-bottom: 40px;
+
+ }
+#showList td,#showList th{
+    border: 1px solid #1a1a1a;
+    text-align: center;
+
+}
